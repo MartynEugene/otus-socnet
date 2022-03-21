@@ -16,3 +16,6 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/signin', 'AuthController@signin');
+$router->get('/signup', 'AuthController@signup');
