@@ -13,8 +13,8 @@
             'type' => 'password',
         ],
         [
-            'label' => 'Repeat password',
-            'input' => 'password',
+            'label' => 'Confirm password',
+            'input' => 'password_confirmation',
             'type' => 'password',
         ]
     ];
@@ -27,13 +27,13 @@
             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
             <div class="form-outline flex-fill mb-0">
                 <label class="form-label">{{ $field['label'] }}</label>
-                <input type="{{ $field['type'] }}" class="form-control" />
+                <input type="{{ $field['type'] }}" name="{{ $field['input'] }}" class="form-control" />
             </div>
         </div>
     @endforeach
     <div class="form-check d-flex justify-content-center mb-5">
-        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-        <label class="form-check-label" for="form2Example3">
+        <input class="form-check-input me-2" type="checkbox" name="terms" value="1" />
+        <label class="form-check-label">
             I agree all statements in <a href="#!">Terms of service</a>
         </label>
     </div>
