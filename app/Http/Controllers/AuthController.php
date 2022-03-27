@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Components\Auth\RegisterAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,6 +31,11 @@ class AuthController extends Controller
             return view('auth.signup', ['error' => $validator->errors()->first()]);
         }
 
+        $register = new RegisterAction();
+        $register->setParams($validator->validated());
+        if(!$register->run()) {
+            return view('auth.signup', ['error' => $register->error()]);
+        }
         return view('auth.signup', ['error' => 'OK']);
     }
 
