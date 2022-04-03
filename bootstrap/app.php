@@ -113,8 +113,18 @@ $app->router->group([
 });
 
 $app->middleware([
+    \Illuminate\Session\Middleware\StartSession::class,
+
     App\Http\Middleware\Authenticate::class,
  ]);
+
+ $app->singleton(Illuminate\Session\SessionManager::class, function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session');
+});
+
+$app->singleton('session.store', function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session.store');
+});
 
 $app->withFacades();
 return $app;

@@ -17,7 +17,7 @@ class Authenticate
     {
         $pathExcept = ['signin', 'signup'];
         $path = $request->path();
-        $loggedIn = false; //$request->session()->get('logged_in');
+        $loggedIn = $request->session()->get('logged_in');
         if (!$loggedIn && !in_array($path, $pathExcept)) {
             return redirect()->to('signin');
         }
