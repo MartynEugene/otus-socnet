@@ -10,34 +10,39 @@ use Illuminate\Support\Facades\Hash;
  */
 class LoginAction
 {
-    private array $params;
-
-    private string $error;
-
-    public function setParams(array $params): void
-    {
-        $this->params = $params;
-    }
-
     public function error(): string
     {
         return $this->error;
     }
 
-    public function run(): bool
+    public function run($request): bool
     {
-        $email = $this->params['email'];
-        $password = $this->params['password'];
+        $email = $request->input('email');
+        $password = $request->input('password');
 
         $result = DB::select(DB::raw("SELECT `password` FROM users WHERE `email` = :email"), ['email' => $email]);
         $hashshedPassword = $result[0]->password ?? null;
-        return Hash::check($password, $hashshedPassword);
+        if (Hash::check($password, $hashshedPassword)) {
+            $this->login($email, $request);
+            return true;
+        }
+        return false;
     }
 
-    public function authorize(string $email)
+    public function isLoggedIn($request): bool
     {
-        //session_start();
-        //$_SESSION['currentUser'] = $email;
+        return !!$request->session()->get('loggedin');
     }
 
+    public function login(string $email, $request)
+    {
+        $request->session()->put('loggedin', true);
+        $request->session()->put('username', $email);
+    }
+
+    public function logout($request)
+    {
+        $request->session()->put('loggedin', false);
+        $request->session()->forget('username');
+    }
 }

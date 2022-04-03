@@ -42,18 +42,18 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $params = [
-            'email' => $request->post('email'),
-            'password' => $request->post('password'),
-        ];
-
         $login = new LoginAction();
-        $login->setParams($params);
-        $result = $login->run();
+        $result = $login->run($request);
         if (!$result) {
             return view('auth.signin', ['error' => 'Wrong credentials']);
         }
 
-        return redirect('/');
+        return redirect()->to('/');
+    }
+
+    public function logout(Request $request)
+    {
+        $login = new LoginAction();
+        $login->logout($request);
     }
 }

@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Http\Controllers\MainController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,12 +15,11 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/', 'MainController@index');
 
 $router->get('/signup', 'AuthController@signup');
 $router->get('/signin', 'AuthController@signin');
+$router->get('/logout', 'AuthController@logout');
 
 $router->post('/signup', 'AuthController@register');
 $router->post('/signin', 'AuthController@login');
