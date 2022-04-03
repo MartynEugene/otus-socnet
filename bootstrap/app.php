@@ -112,6 +112,9 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+$app->middleware([
+    App\Http\Middleware\Authenticate::class,
+ ]);
 
 $app->withFacades();
 return $app;

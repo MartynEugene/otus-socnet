@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Components\Auth\LoginAction;
 use App\Components\Auth\RegisterAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +42,18 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        return view('auth.signin', ['error' => 'loginus']);
+        $params = [
+            'email' => $request->post('email'),
+            'password' => $request->post('password'),
+        ];
+
+        $login = new LoginAction();
+        $login->setParams($params);
+        $result = $login->run();
+        if (!$result) {
+            return view('auth.signin', ['error' => 'Wrong credentials']);
+        }
+
+        return redirect('/');
     }
 }
