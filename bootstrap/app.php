@@ -116,6 +116,7 @@ $app->middleware([
     \Illuminate\Session\Middleware\StartSession::class,
 
     App\Http\Middleware\Authenticate::class,
+    App\Http\Middleware\CheckInfo::class,
  ]);
 
  $app->singleton(Illuminate\Session\SessionManager::class, function () use ($app) {

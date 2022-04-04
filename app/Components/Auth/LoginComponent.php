@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Hash;
 /**
  * Class used for authorization, deals with the database directly
  */
-class LoginAction
+class LoginComponent
 {
     public function error(): string
     {
         return $this->error;
     }
 
-    public function run($request): bool
+    public function authentificate($request): bool
     {
         $email = $request->input('email');
         $password = $request->input('password');
@@ -32,6 +32,11 @@ class LoginAction
     public function isLoggedIn($request): bool
     {
         return !!$request->session()->get('loggedin');
+    }
+
+    public function getEmail($request): ?string
+    {
+        return $request->session()->get('username') ?? null;
     }
 
     public function login(string $email, $request)

@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Components\Userbase\InfoComponent;
 use App\Components\Auth\LoginComponent;
+
 use Closure;
 
 
-class Authenticate
+class CheckInfo
 {
     /**
      * Custom authorization
@@ -17,11 +19,12 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
+        $info = new InfoComponent();
         $login = new LoginComponent();
-        $pathExcept = ['signin', 'signup'];
+        $email = $login->getEmail($request);
         $path = $request->path();
-        if (!$login->isLoggedIn($request) && !in_array($path, $pathExcept)) {
-            return redirect()->to('signin');
+        if (!$info->exists($email) && $path != 'info') {
+            return redirect()->to('info');
         }
 
         return $next($request);
