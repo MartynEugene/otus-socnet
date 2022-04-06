@@ -6,6 +6,6 @@ class MainController extends Controller
 {
     public function index()
     {
-        return 'you are logged in!';
+        return view('users.info');
     }
 }

@@ -23,7 +23,7 @@ class CheckInfo
         $login = new LoginComponent();
         $email = $login->getEmail($request);
         $path = $request->path();
-        if (!$info->exists($email) && $path != 'info') {
+        if ($email && !$info->exists($email) && $path != 'info') {
             return redirect()->to('info');
         }
 
