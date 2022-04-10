@@ -21,8 +21,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $params = $request->all();
-        $validator = Validator::make($params, [
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
             'terms' => 'required',
@@ -55,5 +54,6 @@ class AuthController extends Controller
     {
         $login = new LoginComponent();
         $login->logout($request);
+        return redirect()->to('/');
     }
 }

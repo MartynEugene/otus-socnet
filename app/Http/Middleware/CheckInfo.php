@@ -22,8 +22,9 @@ class CheckInfo
         $info = new InfoComponent();
         $login = new LoginComponent();
         $email = $login->getEmail($request);
+        $pathExcept = ['info', 'logout'];
         $path = $request->path();
-        if ($email && !$info->exists($email) && $path != 'info') {
+        if ($email && !$info->exists($email) && !in_array($path, $pathExcept)) {
             return redirect()->to('info');
         }
 

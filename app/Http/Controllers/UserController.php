@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Components\Auth\LoginComponent;
+use App\Components\Userbase\InfoComponent;
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,11 +14,41 @@ class UserController extends Controller
     {
         $login = new LoginComponent();
         $email = $login->getEmail($request);
-        return view('users.info', ['email' => $email ?? null]);
+        $info = new InfoComponent();
+        $userInfo = $info->getUserData($email);
+
+        return view('users.info', [
+            'email' => $email,
+            'info' => $userInfo
+        ]);
     }
 
     public function editInfo(Request $request)
     {
-        return "fuck you!";
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required|string|alpha',
+            'lastname' => 'required|string|alpha',
+            'gender' => 'required|string',
+            'city' => 'string',
+            'hobbies' => 'string',
+        ]);
+
+        $login = new LoginComponent();
+        $email = $login->getEmail($request);
+
+        if ($validator->fails()) {
+            return view('users.info', [
+                'email' => $email,
+                'error' => $validator->errors()->first()
+            ]);
+        }
+
+        $info = new InfoComponent();
+        $result = $info->editInfo($email, $validator->validated());
+        if($result) {
+            return redirect()->to('/');
+        }
+
+        return view('users.info', ['error' => 'Internal error']);
     }
 }
