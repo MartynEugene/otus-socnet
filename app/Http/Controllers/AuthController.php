@@ -36,7 +36,9 @@ class AuthController extends Controller
         if(!$register->run()) {
             return view('auth.signup', ['error' => $register->error()]);
         }
-        return view('auth.signup', ['error' => 'OK']);
+
+        (new LoginComponent())->authentificate($request);
+        return redirect()->to('/');
     }
 
     public function login(Request $request)

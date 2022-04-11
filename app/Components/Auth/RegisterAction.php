@@ -35,8 +35,8 @@ class RegisterAction
         $email = $params['email'];
         $password = Hash::make($params['password']);
         $now = date("Y-m-d H:i:s");
-        $sql = "INSERT INTO `users` (`email`, `password`, `registration_date`) VALUES (':email', ':password', ':now')";
-        return DB::statement($sql, compact('email, password, now'));
+        $sql = "INSERT INTO `users` (`email`, `password`, `registration_date`) VALUES (:email, :password, :now)";
+        return DB::statement($sql, compact('email', 'password', 'now'));
     }
 
     public function run(): bool
