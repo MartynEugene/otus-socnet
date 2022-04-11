@@ -15,8 +15,6 @@ class MainController extends Controller
         $email = $login->getEmail($request);
         $user = new UserComponent();
         $list = $user->listOtherUsers($email);
-
-
-        return print_r($list, true);
+        return view('users.listing', ['users' => $list]);
     }
 }
