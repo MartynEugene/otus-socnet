@@ -16,15 +16,13 @@ return new class extends Migration
     {
         Schema::create('friendship', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('first_friend')->unsigned();
-            $table->bigInteger('second_friend')->unsigned();
+            $table->bigInteger('friend')->unsigned();
+            $table->bigInteger('friend_to')->unsigned();
 
-            $table->foreign('first_friend')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('second_friend')->references('id')->on('users')->onDelete('cascade');
-            $table->unique(['first_friend', 'second_friend']);
+            $table->foreign('friend')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('friend_to')->references('id')->on('users')->onDelete('cascade');
+            $table->unique(['friend', 'friend_to']);
         });
-
-        DB::statement('ALTER TABLE `friendship` ADD CONSTRAINT `chk_friendship_consistency` CHECK (`first_friend` < `second_friend`);');
     }
 
     /**
