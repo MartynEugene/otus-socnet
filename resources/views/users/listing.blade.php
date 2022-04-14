@@ -9,17 +9,30 @@
                 <div class="col-lg-12 col-xl-11">
                     @foreach ($users as $user)
                     <div class="card" style="width: 100%;">
-                        <div class="row">
+                        <div class="row p-3">
                             <div class="col-md-3">
                                 <div class="card-body text-left">
                                     <h5 class="card-title">{{$user['first_name'] . ' ' . $user['last_name'] }}</h5>
                                     <p class="card-text">{{$user['email']}}</p>
                                     <p class="card-text">{{$user['city']}}</p>
-                                    <a href="#" class="btn btn-primary">Add friend</a>
+                                    @if ($user['is_friend'] == 'both')
+                                        <a href="#" class="btn btn-primary">Unfriend</a>
+                                    @endif
+                                    @if ($user['is_friend'] == 'proposed')
+                                        <a href="#" class="btn btn-primary">Remove request</a>
+                                    @endif
+                                    @if ($user['is_friend'] == 'incoming')
+                                        <a href="#" class="btn btn-primary">Accept friend</a>
+                                    @endif
+                                    @if ($user['is_friend'] == 'none')
+                                        <a href="#" class="btn btn-primary">Add friend</a>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="col-md-3 text-right">
-                                <p class="card-text">{{$user['hobbies']}}</p>
+                            <div class="col-md-5">
+                                <div class="text-right">
+                                    <p class="card-text">{{$user['hobbies']}}</p>
+                                </div>
                             </div>
                         </div>
                         @endforeach
