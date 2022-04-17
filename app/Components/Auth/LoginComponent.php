@@ -20,10 +20,11 @@ class LoginComponent
         $email = $request->input('email');
         $password = $request->input('password');
 
-        $result = DB::select(DB::raw("SELECT `password` FROM users WHERE `email` = :email"), ['email' => $email]);
+        $result = DB::select(DB::raw("SELECT `id`, `password` FROM users WHERE `email` = :email"), ['email' => $email]);
         $hashshedPassword = $result[0]->password ?? null;
         if (Hash::check($password, $hashshedPassword)) {
-            $this->login($email, $request);
+            $id = $result[0]->id ?? null;
+            $this->login($id, $email, $request);
             return true;
         }
         return false;
@@ -39,15 +40,22 @@ class LoginComponent
         return $request->session()->get('username') ?? null;
     }
 
-    public function login(string $email, $request)
+    public function getId($request): ?int
+    {
+        return (int)$request->session()->get('userid') ?? null;
+    }
+
+    public function login(int $id, string $email, $request)
     {
         $request->session()->put('loggedin', true);
         $request->session()->put('username', $email);
+        $request->session()->put('userid', $id);
     }
 
     public function logout($request)
     {
         $request->session()->put('loggedin', false);
         $request->session()->forget('username');
+        $request->session()->forget('userid');
     }
 }
