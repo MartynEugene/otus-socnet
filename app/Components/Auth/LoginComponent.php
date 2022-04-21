@@ -4,6 +4,8 @@ namespace App\Components\Auth;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+
 
 /**
  * Class used for authorization, deals with the database directly
@@ -15,7 +17,7 @@ class LoginComponent
         return $this->error;
     }
 
-    public function authentificate($request): bool
+    public function authentificate(Request $request): bool
     {
         $email = $request->input('email');
         $password = $request->input('password');
@@ -30,29 +32,29 @@ class LoginComponent
         return false;
     }
 
-    public function isLoggedIn($request): bool
+    public function isLoggedIn(Request $request): bool
     {
         return !!$request->session()->get('loggedin');
     }
 
-    public function getEmail($request): ?string
+    public function getEmail(Request $request): ?string
     {
         return $request->session()->get('username') ?? null;
     }
 
-    public function getId($request): ?int
+    public function getId(Request $request): ?int
     {
         return (int)$request->session()->get('userid') ?? null;
     }
 
-    public function login(int $id, string $email, $request)
+    public function login(int $id, string $email, Request $request)
     {
         $request->session()->put('loggedin', true);
         $request->session()->put('username', $email);
         $request->session()->put('userid', $id);
     }
 
-    public function logout($request)
+    public function logout(Request $request)
     {
         $request->session()->put('loggedin', false);
         $request->session()->forget('username');

@@ -24,3 +24,5 @@ $router->get('/info', 'UserController@info');
 $router->post('/signup', 'AuthController@register');
 $router->post('/signin', 'AuthController@login');
 $router->post('/info', 'UserController@editInfo');
+
+$router->get('/friend/add', 'MainController@addFriend');

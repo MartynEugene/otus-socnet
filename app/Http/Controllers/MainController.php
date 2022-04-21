@@ -17,4 +17,18 @@ class MainController extends Controller
         $list = $user->listOtherUsers($email);
         return view('users.listing', ['users' => $list]);
     }
+
+    public function addFriend(Request $request)
+    {
+        $login = new LoginComponent();
+        $friend = $login->getId($request);
+
+        $validated = $this->validate($request, [
+            'friend_to' => 'required|exists:users,id|not_in:'.$friend
+        ]);
+
+        $friend_to = $validated['friend_to'];
+        $user = new UserComponent();
+        $user->addFriend($friend, $friend_to);
+    }
 }
