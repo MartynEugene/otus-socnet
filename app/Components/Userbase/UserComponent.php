@@ -44,16 +44,23 @@ class UserComponent
 
     public function addFriend(int $friend, int $friend_to): bool
     {
-        $data = self::checkFriendshipStatus($friend, $friend_to);
-        if($data['sent'] || $data['recieved']) {
-            return false;
-        }
-
-        $sql = "INSERT INTO `friendship` (`friendz, zfriend_to`) VALUES (:friend, :friend_to)";
-        DB::statement(Db::raw($sql), compact('friend', 'friend_to'));
+        $sql = "INSERT INTO `friendship` (`friend`, `friend_to`) VALUES (:friend, :friend_to)";
+        return DB::statement(Db::raw($sql), compact('friend', 'friend_to'));
     }
 
-    private function checkFriendshipStatus(int $friend, int $friend_to): array
+    public function acceptFriend(int $friend, int $friend_to): bool
+    {
+        $sql = "INSERT INTO `friendship` (`friend`, `friend_to`) VALUES (:friend, :friend_to)";
+        return DB::statement(Db::raw($sql), compact('friend', 'friend_to'));
+    }
+
+    public function deleteFriend(int $friend, int $friend_to): bool
+    {
+        $sql = "DELETE FROM `friendship` WHERE `friend` = :friend AND `friend_to` = :friend_to";
+        return DB::statement(Db::raw($sql), compact('friend', 'friend_to'));
+    }
+
+    public function friendshipStatus(int $friend, int $friend_to): string
     {
         $sql = "SELECT CASE WHEN `id` IS NOT NULL THEN 'sent' ELSE 0 END AS `relationship` FROM `friendship`
             WHERE (`friend` = $friend AND `friend_to` = $friend_to)
@@ -62,9 +69,24 @@ class UserComponent
             WHERE (`friend` = $friend_to AND `friend_to` = $friend);";
 
         $result = DB::select($sql);
-        return [
+
+        $statusTable =  [
             'sent' => !empty($result[0]->relationship),
             'recieved' => !empty($result[1]->relationship),
         ];
+
+        if ($statusTable['sent'] && $statusTable['recieved']) {
+            return 'both';
+        }
+
+        if (!$statusTable['sent'] && $statusTable['recieved']) {
+            return 'incoming';
+        }
+
+        if ($statusTable['sent'] && !$statusTable['recieved']) {
+            return 'proposed';
+        }
+
+        return 'none';
     }
 }
