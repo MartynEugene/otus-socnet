@@ -15,17 +15,17 @@
                                     <h5 class="card-title">{{$user['first_name'] . ' ' . $user['last_name'] }}</h5>
                                     <p class="card-text">{{$user['email']}}</p>
                                     <p class="card-text">{{$user['city']}}</p>
-                                    @if ($user['is_friend'] == 'both')
-                                        <a href="#" class="btn btn-primary">Unfriend</a>
+                                    @if ($user['is_friend'] == 'none')
+                                        <button onclick="FriendshipController.befriend( {{ $user['id'] }})" class="btn btn-primary">Add friend</button>
                                     @endif
-                                    @if ($user['is_friend'] == 'proposed')
-                                        <a href="#" class="btn btn-primary">Remove request</a>
+                                    @if ($user['is_friend'] == 'both')
+                                        <button onclick="FriendshipController.unfriend( {{ $user['id'] }})" class="btn btn-primary">Unfriend</button>
                                     @endif
                                     @if ($user['is_friend'] == 'incoming')
-                                        <a href="#" class="btn btn-primary">Accept friend</a>
+                                        <button onclick="FriendshipController.accept( {{ $user['id'] }})" class="btn btn-primary">Accept friend</button>
                                     @endif
-                                    @if ($user['is_friend'] == 'none')
-                                        <a href="#" class="btn btn-primary">Add friend</a>
+                                    @if ($user['is_friend'] == 'proposed')
+                                        <button onclick="FriendshipController.decline( {{ $user['id'] }})" class="btn btn-primary">Decline request</button>
                                     @endif
                                 </div>
                             </div>
@@ -40,5 +40,6 @@
                 </div>
             </div>
         </div>
+        <script src="js/components/friendship/FriendshipController.js"></script>
     </body>
 </html>
