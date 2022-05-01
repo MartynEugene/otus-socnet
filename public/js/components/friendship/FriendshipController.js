@@ -28,5 +28,6 @@ class FriendshipController
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         let params = 'friend_to=' + String(id);
         xhr.send(params);
+        location.reload();
     }
 }

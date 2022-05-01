@@ -17,12 +17,13 @@ $router->get('/', 'MainController@index');
 
 $router->get('/signup', 'AuthController@signup');
 $router->get('/signin', 'AuthController@signin');
-$router->get('/logout', 'AuthController@logout');
-$router->get('/info', 'UserController@info');
 
+$router->get('/info', 'UserController@info');
 
 $router->post('/signup', 'AuthController@register');
 $router->post('/signin', 'AuthController@login');
+$router->post('/logout', 'AuthController@logout');
+
 $router->post('/info', 'UserController@editInfo');
 
 $router->post('/friendship/befriend', 'FriendshipController@befriend');

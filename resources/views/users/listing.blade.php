@@ -4,6 +4,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
     <body>
+        @include('widgets.navbar')
         <div class="container h-100">
             <div class="row d-flex align-items-center">
                 <div class="col-lg-12 col-xl-11">
