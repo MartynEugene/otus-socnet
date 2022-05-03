@@ -21,6 +21,11 @@ class FriendshipController
         FriendshipController.send('/friendship/decline', userId);
     }
 
+    static cancel(userId)
+    {
+        FriendshipController.send('/friendship/cancel', userId);
+    }
+
     static send(url, id)
     {
         let xhr = new XMLHttpRequest();

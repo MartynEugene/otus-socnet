@@ -31,7 +31,7 @@ class FriendshipController extends Controller
         {
             $user = new UserComponent();
             $status = $user->friendshipStatus($friend, $friend_to);
-            if (strcmp($status, 'incoming') !== 0) {
+            if (strcmp($status, 'proposed') !== 0) {
                 return false;
             }
 
@@ -49,11 +49,25 @@ class FriendshipController extends Controller
                 return false;
             }
 
-            return $user->deleteFriend($friend, $friend_to);
+            return $user->deleteFriend($friend_to, $friend);
         });
     }
 
     public function decline(Request $request)
+    {
+        $this->actionFriend($request, function($friend, $friend_to) : bool
+        {
+            $user = new UserComponent();
+            $status = $user->friendshipStatus($friend, $friend_to);
+            if (strcmp($status, 'proposed') !== 0) {
+                return false;
+            }
+
+            return $user->deleteFriend($friend, $friend_to);
+        });
+    }
+
+    public function cancel(Request $request)
     {
         $this->actionFriend($request, function($friend, $friend_to) : bool
         {

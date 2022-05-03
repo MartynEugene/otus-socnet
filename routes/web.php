@@ -30,3 +30,4 @@ $router->post('/friendship/befriend', 'FriendshipController@befriend');
 $router->post('/friendship/unfriend', 'FriendshipController@unfriend');
 $router->post('/friendship/accept', 'FriendshipController@accept');
 $router->post('/friendship/decline', 'FriendshipController@decline');
+$router->post('/friendship/cancel', 'FriendshipController@cancel');

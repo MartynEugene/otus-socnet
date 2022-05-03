@@ -17,16 +17,17 @@
                                     <p class="card-text">{{$user['email']}}</p>
                                     <p class="card-text">{{$user['city']}}</p>
                                     @if ($user['is_friend'] == 'none')
-                                        <button onclick="FriendshipController.befriend( {{ $user['id'] }})" class="btn btn-primary">Add friend</button>
+                                        <button onclick="FriendshipController.befriend({{ $user['id'] }})" class="btn btn-primary">Add friend</button>
                                     @endif
                                     @if ($user['is_friend'] == 'both')
-                                        <button onclick="FriendshipController.unfriend( {{ $user['id'] }})" class="btn btn-primary">Unfriend</button>
+                                        <button onclick="FriendshipController.unfriend({{ $user['id'] }})" class="btn btn-primary">Unfriend</button>
                                     @endif
                                     @if ($user['is_friend'] == 'incoming')
-                                        <button onclick="FriendshipController.accept( {{ $user['id'] }})" class="btn btn-primary">Accept friend</button>
+                                        <button onclick="FriendshipController.accept({{ $user['id'] }})" class="btn btn-primary">Accept friend</button>
+                                        <button onclick="FriendshipController.decline({{ $user['id'] }})" class="btn btn-primary">Decline request</button>
                                     @endif
                                     @if ($user['is_friend'] == 'proposed')
-                                        <button onclick="FriendshipController.decline( {{ $user['id'] }})" class="btn btn-primary">Decline request</button>
+                                        <button onclick="FriendshipController.cancel({{ $user['id'] }})" class="btn btn-primary">Cancel request</button>
                                     @endif
                                 </div>
                             </div>
