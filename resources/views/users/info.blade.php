@@ -6,7 +6,7 @@
     <body>
         @include('widgets.navbar')
         <section class="vh-100" style="background-color: #eee;">
-            <div class="container rounded bg-white h-50 mt-5 mb-5">
+            <div class="container rounded bg-white">
                 @if (!empty($error))
                     <span>Error: {{$error}}</span>
                 @endif
