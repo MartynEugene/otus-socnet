@@ -8,7 +8,7 @@ use App\Components\Userbase\InfoComponent;
 
 class UserComponent
 {
-    public function listOtherUsers(string $email): array
+    public function listOtherUsers(string $email, bool $onlyFriends = false): array
     {
         $sql = "SELECT
                     `u`.`id`,
@@ -29,6 +29,10 @@ class UserComponent
                 LEFT JOIN `friendship` `f1` ON `f1`.`friend` = `u`.`id`
                 LEFT JOIN `friendship` `f2` ON `f2`.`friend_to` = `u`.`id`
                 WHERE `u`.`email` != :email";
+
+        if ($onlyFriends) {
+            $sql .= " AND `f1`.`id` IS NOT NULL AND `f2`.`id` IS NOT NULL";
+        }
 
         $result = DB::select(DB::raw($sql), ['email' => $email]);
         if (empty($result)) {

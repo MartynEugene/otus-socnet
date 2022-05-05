@@ -13,7 +13,8 @@
 |
 */
 
-$router->get('/', 'MainController@index');
+$router->get('/', 'MainController@all');
+$router->get('/friends', 'MainController@friends');
 
 $router->get('/signup', 'AuthController@signup');
 $router->get('/signin', 'AuthController@signin');

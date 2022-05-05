@@ -28,5 +28,9 @@ body {
 </style>
 <div class="topnav">
   <a href="javascript:void" onclick="Logout.logout()">Logout</a>
+  <a href="/">See all</a>
+  <a href="/friends">See friends</a>
+  <a href="/info">My info</a>
+
 </div> 
 <script src="js/components/auth/logout.js"></script>
