@@ -9,8 +9,8 @@
             <div class="row d-flex align-items-center">
                 <div class="col-lg-12 col-xl-11">
                     @foreach ($users as $user)
-                    <div class="card" style="width: 100%;">
-                        <div class="row p-3">
+                    <div class="card">
+                        <div class="row p-3" style="0.25rem">
                             <div class="col-md-3">
                                 <div class="card-body text-left">
                                     <h5 class="card-title">{{$user['first_name'] . ' ' . $user['last_name'] }}</h5>
@@ -37,8 +37,8 @@
                                 </div>
                             </div>
                         </div>
-                        @endforeach
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
