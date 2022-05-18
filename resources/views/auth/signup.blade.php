@@ -31,6 +31,9 @@
             </div>
         </div>
     @endforeach
+    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+        <a href="/signin">Already have an account? Sign in</a>
+    </div>
     <div class="form-check d-flex justify-content-center mb-5">
         <input class="form-check-input me-2" type="checkbox" name="terms" value="1" />
         <label class="form-check-label">

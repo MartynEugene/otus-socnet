@@ -28,6 +28,9 @@
         </div>
     @endforeach
     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+        <a href="/signup">Don't have an account yet? Sign up</a>
+    </div>
+    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
         <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
     </div>
 </form>
